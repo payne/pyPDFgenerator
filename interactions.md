@@ -22,3 +22,7 @@
   don't pollute `requirements.txt`.
 - Stopped the test server after verification; added `README.md` with setup,
   run, and example `curl` instructions.
+- Request: add a friendly response for `GET /`.
+- Added a `GET /` route returning a JSON welcome message pointing users to
+  `POST /pdf`. Verified with a live server + `curl`, then stopped the
+  server.

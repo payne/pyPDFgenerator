@@ -14,6 +14,11 @@ def render_template(template: str, data: dict) -> str:
     return PLACEHOLDER_RE.sub(lambda m: str(data.get(m.group(1), m.group(0))), template)
 
 
+@app.get("/")
+def index():
+    return jsonify(message="Welcome to pyPDFgenerator! POST a template and data to /pdf to get your PDF.")
+
+
 @app.post("/pdf")
 def generate_pdf():
     body = request.get_json(silent=True)
