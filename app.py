@@ -1,5 +1,6 @@
 import io
 import re
+from datetime import datetime, timezone
 
 import markdown
 from flask import Flask, jsonify, request, send_file
@@ -14,9 +15,17 @@ def render_template(template: str, data: dict) -> str:
     return PLACEHOLDER_RE.sub(lambda m: str(data.get(m.group(1), m.group(0))), template)
 
 
+@app.before_request
+def log_request():
+    print(f"[{datetime.now(timezone.utc).isoformat()}] {request.method} {request.path}", flush=True)
+
+
 @app.get("/")
 def index():
-    return jsonify(message="Welcome to pyPDFgenerator! POST a template and data to /pdf to get your PDF.")
+    return jsonify(
+        message="Welcome to pyPDFgenerator! POST a template and data to /pdf to get your PDF.",
+        timestamp=datetime.now(timezone.utc).isoformat(),
+    )
 
 
 @app.post("/pdf")

@@ -26,3 +26,10 @@
 - Added a `GET /` route returning a JSON welcome message pointing users to
   `POST /pdf`. Verified with a live server + `curl`, then stopped the
   server.
+- Request: add a current timestamp to `GET /`'s JSON response, and log stdout
+  chatter on every GET/POST.
+- Added a `timestamp` field (UTC, ISO 8601) to the `GET /` response, and a
+  Flask `before_request` hook that prints a timestamped `METHOD path` line to
+  stdout (flushed) for every request. Verified with a live server: `GET /`
+  returned a timestamp and printed a log line; `POST /pdf` also printed a log
+  line and still returned a valid PDF. Stopped the test server after.
